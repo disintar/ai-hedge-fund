@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import { getStatusColor } from '../utils';
+import { cn } from "@/lib/utils";
+import { getStatusColor } from "../utils";
 
 interface OutputNodeStatusProps {
   isProcessing: boolean;
@@ -17,19 +17,20 @@ export function OutputNodeStatus({
   isProcessing,
   isAnyAgentRunning,
   isOutputAvailable,
-  isConnected,
+  isConnected: _isConnected,
   onViewOutput,
   processingText = "In Progress",
   completingText = "Completing",
   availableText = "View Output",
-  idleText = "Idle"
+  idleText = "Idle",
 }: OutputNodeStatusProps) {
   // Determine the current state and appropriate styling
   const isLocallyProcessing = isProcessing; // Connected agents are running
   const isGloballyProcessing = !isProcessing && isAnyAgentRunning; // Other agents running
   const hasGradientAnimation = isLocallyProcessing || isGloballyProcessing;
-  const isClickable = isOutputAvailable && !isLocallyProcessing && !isGloballyProcessing;
-  
+  const isClickable =
+    isOutputAvailable && !isLocallyProcessing && !isGloballyProcessing;
+
   // Determine display text based on current state
   let displayText: string;
   if (isLocallyProcessing) {
@@ -42,15 +43,16 @@ export function OutputNodeStatus({
     displayText = idleText; // "Idle"
   }
 
-  const status = hasGradientAnimation ? 'IN_PROGRESS' : 'IDLE';
+  const status = hasGradientAnimation ? "IN_PROGRESS" : "IDLE";
 
   return (
-    <div 
+    <div
       className={cn(
         "text-foreground text-xs rounded p-2 border border-status transition-colors",
         hasGradientAnimation ? "gradient-animation" : getStatusColor(status),
-        isClickable && "bg-primary text-primary-foreground cursor-pointer hover:bg-primary/80",
-        !isOutputAvailable && !hasGradientAnimation && "opacity-50"
+        isClickable &&
+          "bg-primary text-primary-foreground cursor-pointer hover:bg-primary/80",
+        !isOutputAvailable && !hasGradientAnimation && "opacity-50",
       )}
       onClick={isClickable ? onViewOutput : undefined}
     >
@@ -63,4 +65,4 @@ export function OutputNodeStatus({
       )}
     </div>
   );
-} 
+}

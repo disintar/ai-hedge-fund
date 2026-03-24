@@ -2,23 +2,26 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 // Platform detection utility
 export function isMac(): boolean {
-  return typeof navigator !== 'undefined' && navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  return (
+    typeof navigator !== "undefined" &&
+    navigator.platform.toUpperCase().indexOf("MAC") >= 0
+  );
 }
 
 // Keyboard shortcut formatting utility
 export function formatKeyboardShortcut(key: string): string {
-  const modifierKey = isMac() ? '⌘' : 'Ctrl';
+  const modifierKey = isMac() ? "⌘" : "Ctrl";
   return `${modifierKey}${key.toUpperCase()}`;
 }
 
 // Provider color utility for consistent styling across components
-export function getProviderColor(provider: string): string {
-  return 'bg-gray-600/20 text-primary border-gray-600/40';
+export function getProviderColor(_provider: string): string {
+  return "bg-gray-600/20 text-primary border-gray-600/40";
   // switch (provider.toLowerCase()) {
   //   case 'anthropic':
   //     return 'bg-orange-600/20 text-orange-300 border-orange-600/40';
